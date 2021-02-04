@@ -6,6 +6,7 @@
     "deploy": "./deploy.sh",
     "lint": "eslint . --ext js,json && prettier ./src -c",
     "lint:fix": "eslint . --fix --ext js,json && prettier ./src -c --write",
+    "serve": "static-server . --port 9011",
     "start": "webpack-dev-server",
     "build": "webpack --mode production",
     "test": "yarn lint",

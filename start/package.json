@@ -23,8 +23,12 @@
     "url": ""
   },
   "homepage": "",
+  "type": "module",
   "dependencies": {
-    "@metamask/onboarding": "^0.2.1"
+    "@ethereumjs/tx": "^3.0.1",
+    "@metamask/onboarding": "^0.2.1",
+    "ethereumjs-tx": "^2.1.2",
+    "js-conflux-sdk": "^1.1.6"
   },
   "devDependencies": {
     "@metamask/eslint-config": "^2.0.0",

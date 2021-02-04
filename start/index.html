@@ -9,6 +9,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/css/mdb.min.css" rel="stylesheet">
   <link rel="stylesheet" href="metamask.css" type="text/css">
+  <script type="text/javascript" src="node_modules/js-conflux-sdk/dist/js-conflux-sdk.umd.min.js"></script>
 </head>
 
 <body>
@@ -38,22 +39,25 @@
       <div class="row d-flex justify-content-center">
         <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
           <div class="card">
-            <img class="card-img-top" src="https://metamask.github.io/metamask-docs/ethereum-metamask-chrome.png"
-              alt="Card image cap">
+            <!--img class="card-img-top" src="https://metamask.github.io/metamask-docs/ethereum-metamask-chrome.png"
+              alt="Card image cap"-->
             <div class="card-body">
               <h4 class="card-title">Basic Actions</h4>
-              <button class="btn btn-primary btn-lg btn-block mb-3" id="connectButton" disabled></button>
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="connectButton">connect</button>
               <button class="btn btn-primary btn-lg btn-block mb-3" id="getAccounts">eth_accounts</button>
               <p class="info-text alert alert-secondary">eth_accounts result: <span id="getAccountsResult"></span></p>
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="getBalance">balance</button>
+              <p class="info-text alert alert-secondary">account balance: <span id="getBalanceResult"></span></p>
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="send">send</button>
+              <p class="info-text alert alert-secondary">txHash: <span id="txHash"></span></p>
             </div>
           </div>
         </div>
       </div>
     </section>
     <!-- /Part 1 -->
-
+    <!--
     <section>
-      <!-- Part 2 Contract-->
       <div class="row">
         <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
           <div class="card full-width">
@@ -66,8 +70,7 @@
             </div>
           </div>
         </div>
-        <!-- /Part 2 -->
-
+        
         <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
           <div class="card full-width">
             <div class="card-body">
@@ -100,6 +103,7 @@
         </div>
       </div>
     </section>
+    -->
   </main>
 
   <script src="node_modules/@metamask/onboarding/dist/metamask-onboarding.bundle.js" defer></script>

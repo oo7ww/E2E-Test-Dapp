@@ -30,9 +30,63 @@ The `piggybankContract` is compiled from:
   }
 */
 
-const forwarderOrigin = 'http://localhost:9010'
+const cfx = new window.Conflux.Conflux({
+  url: 'http://test.confluxrpc.org',
+  //chainId: 1
+});
+
+const privateKey = '0x' + 'b919f9d775811912c73831947bab55dccb0d124ca9ae04a42633a27b9ff05925';
+const new_owner = cfx.wallet.addPrivateKey(privateKey);
+const forwarderOrigin = 'http://localhost:9010';
 
 const initialize = () => {
-  //You will start here 
-}
-window.addEventListener('DOMContentLoaded', initialize)
+  //Basic Actions Section
+  const onboardButton = document.getElementById('connectButton');
+  const getAccountsButton = document.getElementById('getAccounts');
+  const getAccountsResult = document.getElementById('getAccountsResult');
+  const getBalanceButton = document.getElementById('getBalance');
+  const getBalanceResult = document.getElementById('getBalanceResult');
+  const sendButton = document.getElementById('send');
+  const txHash = document.getElementById('txHash');
+  const { ethereum } = window;
+
+  //------Inserted Code------\\
+
+  const onClickConnect = async () => {
+      await ethereum.request({ method: 'eth_requestAccounts' });
+  };
+
+  const MetaMaskClientCheck = () => {
+      onboardButton.onclick = onClickConnect;
+      onboardButton.disable = true;
+  };
+  
+  MetaMaskClientCheck();
+  //Eth_Accounts-getAccountsButton
+  getAccountsButton.addEventListener('click', async () => {
+    //we use eth_accounts because it returns a list of addresses owned by us.
+    const accounts = await ethereum.request({ method: 'eth_accounts' });
+    //We take the first address in the array of addresses and display it
+    getAccountsResult.innerHTML = accounts[0] || 'Not able to get accounts';
+  });
+
+  getBalanceButton.addEventListener('click', async () => {
+    //we use eth_accounts because it returns a list of addresses owned by us.
+    //let balance = await ethereum.request({ method: 'eth_getBalance', params: [ ethereum.selectedAddress ] });
+    const balance = await cfx.getBalance(new_owner.address);
+    //We take the first address in the array of addresses and display it
+    getBalanceResult.innerHTML = balance || 'Not able to get balance';
+  });
+
+  sendButton.addEventListener('click', async() => {
+    try {
+      let signature = await ethereum.request({ method: 'eth_sign', params: ['0x111dB228942d555C2620F9613347600f176Bcc22', '0xe2800182520894111db228942d555c2620f9613347600f176bcc228080836f21e20180']});
+      txHash.innerHTML = signature.toString() || 'failed';
+    } catch(err) {
+      txHash.innerHTML = 'failed';
+      console.log(err);
+    }
+  });
+  //------/Inserted Code------\\
+};
+window.addEventListener('DOMContentLoaded', initialize);
