@@ -29,7 +29,6 @@ The `piggybankContract` is compiled from:
       }
   }
 */
-
 const cfx = new window.Conflux.Conflux({
   url: 'http://test.confluxrpc.org',
   //chainId: 1
@@ -48,6 +47,9 @@ const initialize = () => {
   const getBalanceResult = document.getElementById('getBalanceResult');
   const sendButton = document.getElementById('send');
   const txHash = document.getElementById('txHash');
+  // Ethereum Signature Section
+  const ethSign = document.getElementById('ethSign')
+  const ethSignResult = document.getElementById('ethSignResult')
   const { ethereum } = window;
 
   //------Inserted Code------\\
@@ -78,10 +80,29 @@ const initialize = () => {
     getBalanceResult.innerHTML = balance || 'Not able to get balance';
   });
 
+  /**
+   * eth_sign
+   */
+  ethSign.onclick = async () => {
+    try {
+      // const msg = 'Sample message to hash for signature'
+      // const msgHash = keccak256(msg)
+      const msg_tx = '0xb3e99ed9c3f4a81f5bfc58d21455597f98a9b8656c6499cfbf9af07a85ba92bf';
+      const ethResult = await ethereum.request({
+        method: 'eth_sign',
+        params: [ethereum.selectedAddress, msg_tx],
+      })
+      ethSignResult.innerHTML = JSON.stringify(ethResult)
+    } catch (err) {
+      console.error(err)
+      ethSign.innerHTML = `Error: ${err.message}`
+    }
+  }
+
   sendButton.addEventListener('click', async() => {
     try {
       let signature = await ethereum.request({ method: 'eth_sign', params: ['0x111dB228942d555C2620F9613347600f176Bcc22', '0xe2800182520894111db228942d555c2620f9613347600f176bcc228080836f21e20180']});
-      txHash.innerHTML = signature.toString() || 'failed';
+      txHash.innerHTML = JSON.stringify(signature) || 'failed';
     } catch(err) {
       txHash.innerHTML = 'failed';
       console.log(err);
